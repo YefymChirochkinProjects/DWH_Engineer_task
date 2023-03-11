@@ -25,5 +25,11 @@ std = transformed_df[cols_to_normalize].std()
 
 transformed_df[cols_to_normalize] = (transformed_df[cols_to_normalize] - mean) / std
 
+df_for_max_value = transformed_df.iloc[:, 2:]
+df_for_max_value = df_for_max_value.astype('float')
+column_with_max_value = df_for_max_value.apply(lambda x: x[2:].idxmax(), axis=1)
+
+transformed_df['max_feature_type_1_index'] = column_with_max_value.str[-1]
+
 transformed_df.to_csv(r'test_transformed.csv', index=False)
 
